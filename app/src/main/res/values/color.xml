@@ -6,5 +6,7 @@
     <color name="card">#00f</color>
     <color name="card_open">#f00</color>
     <color name="card_closed">#0f0</color>
+    <color name="btn_success">#5cb85c</color>
+    <color name="btn_txt">#f9f9f9</color>
 
 </resources>

@@ -8,12 +8,14 @@ import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
@@ -35,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private String colorStr;
 
     private PopupWindow popupWindow;
-    private LayoutInflater layoutInflater;
     private RelativeLayout relativeLayout;
+    public LinearLayout frame;
 
 //    private String[] isi; //untuk buat variabel untuk isi data dari res array
 //    private String[] random;//belum terpakai
@@ -54,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
 
         shuffle();
         System.out.println(isi);
+
+        frame = (LinearLayout) findViewById(R.id.frame_container);
+
+//        relativeLayout = (RelativeLayout) findViewById(R.id.relative);
 
         // set button yang ada di xml
         btn1=(Button)findViewById(R.id.btn1);
@@ -180,7 +186,11 @@ public class MainActivity extends AppCompatActivity {
             btna.setClickable(false);
             btna.setBackgroundResource(R.color.card_open);
             btna.setText(isi.get(no-1));
-            klik=false;//untuk set tombol ke btna
+            klik=false;
+            frame.setVisibility(View.GONE);
+            getSupportFragmentManager().beginTransaction().add(R.id.root_container, new RetryFragment(),
+                    RetryFragment.class.getSimpleName()).addToBackStack(null).commit();
+            //untuk set tombol ke btna
         }
         else{
             //set btnb dan setclickable false
@@ -274,13 +284,22 @@ public class MainActivity extends AppCompatActivity {
         if(cId1 == -16776961 && cId2 == -16776961 && cId3 == -16776961 && cId4 == -16776961 && cId5 == -16776961 &&
                 cId6 == -16776961 && cId7 == -16776961 && cId8 == -16776961 && cId9 == -16776961 && cId10 == -16776961 &&
                 cId11 == -16776961 && cId12 == -16776961 && cId13 == -16776961 && cId14 == -16776961 && cId15 == -16776961 && cId16 == -16776961){
+            frame.setVisibility(View.GONE);
+            getSupportFragmentManager().beginTransaction().add(R.id.root_container, new RetryFragment(),
+                    RetryFragment.class.getSimpleName()).addToBackStack(null).commit();
 
-            relativeLayout = (RelativeLayout) findViewById(R.id.relative);
-            layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-            ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.popup_completed, null);
-            popupWindow = new PopupWindow(container, 400, 400, true);
-            popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, 500, 500);
+//            -----Popup Window-----
+//            LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+//            View customView = inflater.inflate(R.layout.popup_completed, null);
+//            popupWindow = new PopupWindow(customView, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+//            popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
         }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        frame.setVisibility(View.VISIBLE);
     }
 }
 
