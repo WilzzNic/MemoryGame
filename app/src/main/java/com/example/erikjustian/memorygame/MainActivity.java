@@ -9,6 +9,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //test
+
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().add(R.id.frame_container, new GameFragment(),
                     GameFragment.class.getSimpleName()).commit();
