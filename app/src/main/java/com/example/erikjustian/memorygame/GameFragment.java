@@ -39,7 +39,7 @@ public class GameFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.game_fragment, container, false);
+        View view = inflater.inflate(R.layout.layout4x4, container, false);
         btn1 = (Button) view.findViewById(R.id.btn1);
         btn2 = (Button) view.findViewById(R.id.btn2);
         btn3 = (Button) view.findViewById(R.id.btn3);
@@ -56,8 +56,8 @@ public class GameFragment extends Fragment {
         btn14 = (Button) view.findViewById(R.id.btn14);
         btn15 = (Button) view.findViewById(R.id.btn15);
         btn16 = (Button) view.findViewById(R.id.btn16);
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Memory Game");
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ((medium)getActivity()).getSupportActionBar().setTitle("Memory Game");
+        ((medium)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         return view;
     }
 
@@ -162,7 +162,6 @@ public class GameFragment extends Fragment {
                 check(16,btn16);
             }
         });
-
     }
 
     protected void check(int no,Button btncek){
@@ -263,12 +262,12 @@ public class GameFragment extends Fragment {
         int cId15 = btnbg15.getColor();
         ColorDrawable btnbg16 = (ColorDrawable) btn16.getBackground();
         int cId16 = btnbg16.getColor();
-
+//        System.out.println(cId1);
         // -65536 => color of R.color.card_open
         // -16776961 => color of R.color.card
-        if(cId1 == -16776961 && cId2 == -16776961 && cId3 == -16776961 && cId4 == -16776961 && cId5 == -16776961 &&
-                cId6 == -16776961 && cId7 == -16776961 && cId8 == -16776961 && cId9 == -16776961 && cId10 == -16776961 &&
-                cId11 == -16776961 && cId12 == -16776961 && cId13 == -16776961 && cId14 == -16776961 && cId15 == -16776961 && cId16 == -16776961){
+        if(cId1 == -6381922 && cId2 == -6381922 && cId3 == -6381922 && cId4 == -6381922 && cId5 == -6381922 &&
+                cId6 == -6381922 && cId7 == -6381922 && cId8 == -6381922 && cId9 == -6381922 && cId10 == -6381922 &&
+                cId11 == -6381922 && cId12 == -6381922 && cId13 == -6381922 && cId14 == -6381922 && cId15 == -6381922 && cId16 == -6381922){
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new RetryFragment(),
                     RetryFragment.class.getSimpleName()).addToBackStack(null).commit();
 

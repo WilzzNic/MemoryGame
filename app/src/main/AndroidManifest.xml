@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".easy"></activity>
+        <activity android:name=".medium"></activity>
     </application>
 
 </manifest>

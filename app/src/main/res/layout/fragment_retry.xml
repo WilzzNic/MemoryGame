@@ -40,13 +40,12 @@
             android:layout_marginLeft="0dp"
             android:layout_marginRight="0dp"
             android:layout_weight="1"
-            android:background="@color/btn_success"
-            android:src="@drawable/ic_done"
+            android:background="@color/card_closed"
+            android:paddingBottom="5dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:paddingBottom="5dp"
             android:paddingTop="5dp"
-        />
+            android:src="@drawable/ic_done" />
 
     </LinearLayout>
 

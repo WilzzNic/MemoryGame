@@ -10,6 +10,6 @@ public class easy extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_easy);
+        setContentView(R.layout.layout2x2);
     }
 }

@@ -3,9 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="card">#00f</color>
-    <color name="card_open">#f00</color>
-    <color name="card_closed">#0f0</color>
+    <color name="card">#9e9e9e</color> //#9e9e9e -3155748
+    <color name="card_open">#cfd8dc</color>
+    <color name="card_closed">#1de9b6</color>
     <color name="btn_success">#5cb85c</color>
     <color name="btn_txt">#f9f9f9</color>
 

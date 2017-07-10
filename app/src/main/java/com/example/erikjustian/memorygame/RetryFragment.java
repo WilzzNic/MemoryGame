@@ -19,8 +19,8 @@ public class RetryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_retry, container, false);
         btndenied = (ImageButton) view.findViewById(R.id.button);
         btnapprove = (ImageButton) view.findViewById(R.id.button2);
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Retry");
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ((medium)getActivity()).getSupportActionBar().setTitle("Retry");
+        ((medium)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         return view;
     }
