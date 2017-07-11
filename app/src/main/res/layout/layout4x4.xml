@@ -21,7 +21,28 @@
 
         <TextView
             android:id="@+id/txtTurn"
+            android:layout_width="95dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:fontFamily="monospace"
+            android:text=""
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textViewScore"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:fontFamily="monospace"
+            android:text="Score:"
+            android:textSize="16sp"
+            />
+
+        <TextView
+            android:id="@+id/txtScore"
+            android:layout_width="115dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
             android:layout_marginRight="6dp"

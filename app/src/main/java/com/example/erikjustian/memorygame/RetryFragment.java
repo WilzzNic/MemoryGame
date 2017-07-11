@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 
 public class RetryFragment extends Fragment {
     private ImageButton btndenied, btnapprove;
+    private String lvl;
 
     @Nullable
     @Override
@@ -20,8 +21,10 @@ public class RetryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_retry, container, false);
         btndenied = (ImageButton) view.findViewById(R.id.button);
         btnapprove = (ImageButton) view.findViewById(R.id.button2);
-        ((RetryActivity)getActivity()).getSupportActionBar().setTitle("Retry");
-        ((RetryActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+        lvl = ((RetryActivity) getActivity()).getIntent().getStringExtra("lvl");
+        System.out.println(lvl);
+
         return view;
     }
 
@@ -31,6 +34,7 @@ public class RetryFragment extends Fragment {
         btndenied.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btndenied.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
             }
@@ -39,6 +43,7 @@ public class RetryFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), medium.class);
+                intent.putExtra("lvl", lvl);
                 startActivity(intent);
             }
         });

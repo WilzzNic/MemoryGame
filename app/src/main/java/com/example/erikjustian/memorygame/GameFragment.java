@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -24,21 +25,22 @@ import java.util.Collections;
  * A simple {@link Fragment} subclass.
  */
 public class GameFragment extends Fragment {
-    private Button btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,
-            btn9,btn10,btn11,btn12,btn13,btn14,btn15,btn16,
-            btna,btnb;
+    private Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8,
+            btn9, btn10, btn11, btn12, btn13, btn14, btn15, btn16,
+            btna, btnb;
 
-    private TextView txturn;
+    private TextView txturn, txtScore;
 
-    private String strIntent;
+    private String msg, lvl;
     private int a;
-
-    private int turn_med = 15;
+    private int turn;
 
     private ArrayList<String> isi;
     private String colorStr;
     private Boolean klik = true;
+    private Boolean multi = false;
     private int score = 0;
+    private int point = 5;
 
     public GameFragment() {
         // Required empty public constructor
@@ -66,9 +68,10 @@ public class GameFragment extends Fragment {
         btn15 = (Button) view.findViewById(R.id.btn15);
         btn16 = (Button) view.findViewById(R.id.btn16);
         txturn = (TextView) view.findViewById(R.id.txtTurn);
-        ((medium)getActivity()).getSupportActionBar().setTitle("Memory Game");
-        ((medium)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        txturn.setText(turn_med + "");
+        txtScore = (TextView) view.findViewById(R.id.txtScore);
+        lvl = ((medium) getActivity()).getIntent().getStringExtra("lvl");
+
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -77,128 +80,141 @@ public class GameFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         shuffle();
         System.out.println(isi);
-        if(getActivity().getClass().getSimpleName().equals("medium")){
-            a = -1;
+
+        ((medium) getActivity()).getSupportActionBar().setSubtitle(lvl);
+
+        //gameplay choice rules
+        if (getActivity().getClass().getSimpleName().equals("medium")) {
+//            System.out.println(lvl);
+            switch (lvl) {
+                case "Relax Mode":
+                    turn = 0;
+                    a = 1;
+                    break;
+                case "Challange Mode":
+                    turn = 2;
+                    a = -1;
+                    break;
+            }
         }
-        else{
-            a = 1;
-        }
+        txturn.setText(turn + "");
+        txtScore.setText(score + "");
+
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                check(1,btn1);
+                check(1, btn1);
             }
         });
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                check(2,btn2);
+                check(2, btn2);
             }
         });
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                check(3,btn3);
+                check(3, btn3);
             }
         });
         btn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                check(4,btn4);
+                check(4, btn4);
             }
         });
         btn5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                check(5,btn5);
+                check(5, btn5);
             }
         });
         btn6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                check(6,btn6);
+                check(6, btn6);
             }
         });
         btn7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                check(7,btn7);
+                check(7, btn7);
             }
         });
         btn8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                check(8,btn8);
+                check(8, btn8);
             }
         });
         btn9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                check(9,btn9);
+                check(9, btn9);
             }
         });
         btn10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                check(10,btn10);
+                check(10, btn10);
             }
         });
         btn11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                check(11,btn11);
+                check(11, btn11);
             }
         });
         btn12.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                check(12,btn12);
+                check(12, btn12);
             }
         });
         btn13.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                check(13,btn13);
+                check(13, btn13);
             }
         });
         btn14.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                check(14,btn14);
+                check(14, btn14);
             }
         });
         btn15.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                check(15,btn15);
+                check(15, btn15);
             }
         });
         btn16.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                check(16,btn16);
+                check(16, btn16);
             }
         });
     }
 
-    protected void check(int no,Button btncek){
-        if (klik){
-            btna=btncek;
+    protected void check(int no, Button btncek) {
+        if (klik) {
+            btna = btncek;
             btna.setClickable(false);
             btna.setBackgroundResource(R.color.card_open);
-            btna.setText(isi.get(no-1));
-            klik=false;
+            btna.setText(isi.get(no - 1));
+            klik = false;
 //            frame.setVisibility(View.GONE);
 //            getSupportFragmentManager().beginTransaction().add(R.id.root_container, new RetryFragment(),
 //                    RetryFragment.class.getSimpleName()).addToBackStack(null).commit();
             //untuk set tombol ke btna
-        }
-        else{
+        } else {
             //set btnb dan setclickable false
-            btnb=btncek;
+            btnb = btncek;
             btnb.setClickable(false);
             btnb.setBackgroundResource(R.color.card_open);
-            btnb.setText(isi.get(no-1));
+            btnb.setText(isi.get(no - 1));
             // dibawah untuk delay sebelum di cocokkan
             getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);// ini fungsi untuk disable semua touch
@@ -206,18 +222,26 @@ public class GameFragment extends Fragment {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    // Do something after 5s = 5000ms
-                    if (btna.getText().equals(btnb.getText()))
-                    {//ini untuk cek apakah tombol a=b
+                    // Do something after ...
+                    //ini untuk cek apakah tombol a = b
+                    if ( btna.getText().equals(btnb.getText()) ) {
+                        //score count
+                        if (multi == true) {
+                            point *= 2;
+                            score += point;
+                        } else {
+                            point = 5;
+                            score += point;
+                        }
                         btna.setBackgroundResource(R.color.card);
                         btnb.setBackgroundResource(R.color.card);
-                        btna=null;
-                        btnb=null;
-                        score++;
-                        klik=true;
-                        turn_med = turn_med + a;
+                        btna = null;
+                        btnb = null;
+                        klik = true;
+                        turn = turn + a;
+                        multi = true;
                         checkwin();
-                    }else{
+                    } else {
                         //ini kalau tidak sama kartu akan tertutup textnya di hilangkan btna dan b di null kan dan klik dikembalikan ke true
                         btna.setText("");
                         btnb.setText("");
@@ -225,84 +249,107 @@ public class GameFragment extends Fragment {
                         btnb.setBackgroundResource(R.color.card_closed);
                         btna.setClickable(true);
                         btnb.setClickable(true);
-                        btna=null;
-                        btnb=null;
-                        klik=true;
-                        turn_med = turn_med + a;
+                        btna = null;
+                        btnb = null;
+                        klik = true;
+                        turn = turn + a;
+                        multi = false;
                         checkwin();
                     }
-                    txturn.setText(turn_med + "");
+                    txturn.setText(turn + "");
+                    txtScore.setText(score + "");
                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);//fungsi untuk enable touch
                 }
-            }, 1000);
-
+            }, 500);
         }
-    }
+    } //check cards end here
 
-    protected void shuffle(){
+    protected void shuffle() {
         isi = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.easy)));
         Collections.shuffle(isi);
     }
 
-    protected void checkwin(){
+    protected void checkwin() {
         //noinspection ResourceType
-        colorStr= getResources().getString(R.color.card_open);
+        colorStr = getResources().getString(R.color.card_open);
         int clr = Color.parseColor(colorStr);
         System.out.println(clr);
 
-        ColorDrawable btnbg1 = (ColorDrawable) btn1.getBackground();
-        int cId1 = btnbg1.getColor();
-        ColorDrawable btnbg2 = (ColorDrawable) btn2.getBackground();
-        int cId2 = btnbg2.getColor();
-        ColorDrawable btnbg3 = (ColorDrawable) btn3.getBackground();
-        int cId3 = btnbg3.getColor();
-        ColorDrawable btnbg4 = (ColorDrawable) btn4.getBackground();
-        int cId4 = btnbg4.getColor();
-        ColorDrawable btnbg5 = (ColorDrawable) btn5.getBackground();
-        int cId5 = btnbg5.getColor();
-        ColorDrawable btnbg6 = (ColorDrawable) btn6.getBackground();
-        int cId6 = btnbg6.getColor();
-        ColorDrawable btnbg7 = (ColorDrawable) btn7.getBackground();
-        int cId7 = btnbg7.getColor();
-        ColorDrawable btnbg8 = (ColorDrawable) btn8.getBackground();
-        int cId8 = btnbg8.getColor();
-        ColorDrawable btnbg9 = (ColorDrawable) btn9.getBackground();
-        int cId9 = btnbg9.getColor();
-        ColorDrawable btnbg10 = (ColorDrawable) btn10.getBackground();
-        int cId10 = btnbg10.getColor();
-        ColorDrawable btnbg11 = (ColorDrawable) btn11.getBackground();
-        int cId11 = btnbg11.getColor();
-        ColorDrawable btnbg12 = (ColorDrawable) btn12.getBackground();
-        int cId12 = btnbg12.getColor();
-        ColorDrawable btnbg13 = (ColorDrawable) btn13.getBackground();
-        int cId13 = btnbg13.getColor();
-        ColorDrawable btnbg14 = (ColorDrawable) btn14.getBackground();
-        int cId14 = btnbg14.getColor();
-        ColorDrawable btnbg15 = (ColorDrawable) btn15.getBackground();
-        int cId15 = btnbg15.getColor();
-        ColorDrawable btnbg16 = (ColorDrawable) btn16.getBackground();
-        int cId16 = btnbg16.getColor();
-//        System.out.println(cId1);
-        // -65536 => color of R.color.card_open
-        // -16776961 => color of R.color.card
-        if(cId1 == -6381922 && cId2 == -6381922 && cId3 == -6381922 && cId4 == -6381922 && cId5 == -6381922 &&
-                cId6 == -6381922 && cId7 == -6381922 && cId8 == -6381922 && cId9 == -6381922 && cId10 == -6381922 &&
-                cId11 == -6381922 && cId12 == -6381922 && cId13 == -6381922 && cId14 == -6381922 && cId15 == -6381922 && cId16 == -6381922 && turn_med > 0){
-            strIntent = "YOU WIN!";
+        // getbackgroundcolor
+        int c1 = ((ColorDrawable) btn1.getBackground()).getColor();
+        int c2 = ((ColorDrawable) btn2.getBackground()).getColor();
+        int c3 = ((ColorDrawable) btn3.getBackground()).getColor();
+        int c4 = ((ColorDrawable) btn4.getBackground()).getColor();
+        int c5 = ((ColorDrawable) btn5.getBackground()).getColor();
+        int c6 = ((ColorDrawable) btn6.getBackground()).getColor();
+        int c7 = ((ColorDrawable) btn7.getBackground()).getColor();
+        int c8 = ((ColorDrawable) btn8.getBackground()).getColor();
+        int c9 = ((ColorDrawable) btn9.getBackground()).getColor();
+        int c10 = ((ColorDrawable) btn10.getBackground()).getColor();
+        int c11 = ((ColorDrawable) btn11.getBackground()).getColor();
+        int c12 = ((ColorDrawable) btn12.getBackground()).getColor();
+        int c13 = ((ColorDrawable) btn13.getBackground()).getColor();
+        int c14 = ((ColorDrawable) btn14.getBackground()).getColor();
+        int c15 = ((ColorDrawable) btn15.getBackground()).getColor();
+        int c16 = ((ColorDrawable) btn16.getBackground()).getColor();
+
+        if (c1 == -6381922 && c2 == -6381922 && c3 == -6381922 && c4 == -6381922 && c5 == -6381922 &&
+            c6 == -6381922 && c7 == -6381922 && c8 == -6381922 && c9 == -6381922 && c10 == -6381922 &&
+            c11 == -6381922 && c12 == -6381922 && c13 == -6381922 && c14 == -6381922 && c15 == -6381922 && c16 == -6381922 && turn >= 0) {
+            message();
+            String result = Integer.toString(score);
             Intent intent = new Intent(getActivity(), RetryActivity.class);
-            intent.putExtra("Status", strIntent);
+            intent.putExtra("Status", msg);
+            intent.putExtra("lvl", lvl);
+            intent.putExtra("result", result);
             startActivity(intent);
+
+        } else if (turn <= 0) {
+            msg = "GAME OVER";
+            String result = Integer.toString(score);
+            Intent intent = new Intent(getActivity(), RetryActivity.class);
+            intent.putExtra("Status", msg);
+            intent.putExtra("lvl", lvl);
+            intent.putExtra("result", result);
+            startActivity(intent);
+        }
+
+    } // end of checkwin
+
+    protected void message() {
+        switch (lvl) {
+            case "Relax Mode":
+                if (turn >= 14)
+                    msg = "GOOD GAME";
+                else if (turn < 14)
+                    if (score == 1275)
+                        msg = "PERFECT!";
+                    else if (score < 1275 && score >= 600)
+                        msg = "AWESOME";
+                    else if (score < 600 && score >= 100)
+                        msg = "GREAT JOB";
+                    else
+                        msg = "GOOD GAME";
+                break;
+
+            case "Challange Mode":
+                if (turn >= 2)
+                    if (score == 1275)
+                        msg = "PERFECT!";
+                    else if (score < 1275 && score >= 600)
+                        msg = "AWESOME";
+                    else if (score < 600 && score >= 100)
+                        msg = "GREAT JOB";
+                    else
+                        msg = "GOOD GAME";
+                else
+                    msg = "GOOD GAME";
+                break;
+        }
+    } //end of message
+}
 //            -----Popup Window-----
 //            LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
 //            View customView = inflater.inflate(R.layout.popup_completed, null);
 //            popupWindow = new PopupWindow(customView, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 //            popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
-        }
-        else if (turn_med <= 0){
-            strIntent = "YOU LOSE!";
-            Intent intent = new Intent(getActivity(), RetryActivity.class);
-            intent.putExtra("Status", strIntent);
-            startActivity(intent);
-        }
-    }
-}

@@ -30,14 +30,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Button x = (Button) v;
                 if (x == btneasy) {
-                    String lvl = "Easy";
-                    Intent i = new Intent(MainActivity.this, easy.class);
-                    i.putExtra("lvl", lvl);
-                    startActivity(i);
-                } else if (x == btnmedium) {
-                    String lvl = "Medium";
+                    String lvl = "Relax Mode";
                     Intent i = new Intent(MainActivity.this, medium.class);
                     i.putExtra("lvl", lvl);
+//                    btneasy.setBackgroundColor(getResources().getColor(R.color.btneffect1));
+                    startActivity(i);
+                } else if (x == btnmedium) {
+                    String lvl = "Challange Mode";
+                    Intent i = new Intent(MainActivity.this, medium.class);
+                    i.putExtra("lvl", lvl);
+//                    btnmedium.setBackgroundColor(getResources().getColor(R.color.btneffect1));
                     startActivity(i);
                 }
 
@@ -46,6 +48,12 @@ public class MainActivity extends AppCompatActivity {
 
         btneasy.setOnClickListener(level);
         btnmedium.setOnClickListener(level);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }
 

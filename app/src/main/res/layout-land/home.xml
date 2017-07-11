@@ -23,11 +23,11 @@
 
     <Button
         android:id="@+id/btneasy"
-        android:layout_width="130dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:background="@color/card_closed"
-        android:text="Easy (1 x 4)"
+        android:text="Relax Mode"
         android:textColor="@color/btn_txt"
         app:layout_constraintBottom_toTopOf="@+id/btnmedium"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -35,10 +35,10 @@
 
     <Button
         android:id="@+id/btnmedium"
-        android:layout_width="130dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:background="@color/card_closed"
-        android:text="Medium (4 x 4)"
+        android:text="Challange Mode"
         android:textColor="@color/btn_txt"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
