@@ -1,6 +1,7 @@
 package com.example.erikjustian.memorygame;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,6 +27,12 @@ public class GameFragment extends Fragment {
     private Button btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,
             btn9,btn10,btn11,btn12,btn13,btn14,btn15,btn16,
             btna,btnb;
+
+    private TextView txturn;
+
+    private String strIntent;
+
+    private int turn_med = 1;
 
     private ArrayList<String> isi;
     private String colorStr;
@@ -56,8 +64,10 @@ public class GameFragment extends Fragment {
         btn14 = (Button) view.findViewById(R.id.btn14);
         btn15 = (Button) view.findViewById(R.id.btn15);
         btn16 = (Button) view.findViewById(R.id.btn16);
+        txturn = (TextView) view.findViewById(R.id.txtTurn);
         ((medium)getActivity()).getSupportActionBar().setTitle("Memory Game");
         ((medium)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        txturn.setText(turn_med + "");
         return view;
     }
 
@@ -66,6 +76,7 @@ public class GameFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         shuffle();
         System.out.println(isi);
+        System.out.println(getActivity());
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -198,6 +209,7 @@ public class GameFragment extends Fragment {
                         btnb=null;
                         score++;
                         klik=true;
+                        turn_med--;
                         checkwin();
                     }else{
                         //ini kalau tidak sama kartu akan tertutup textnya di hilangkan btna dan b di null kan dan klik dikembalikan ke true
@@ -210,8 +222,10 @@ public class GameFragment extends Fragment {
                         btna=null;
                         btnb=null;
                         klik=true;
-
+                        turn_med--;
+                        checkwin();
                     }
+                    txturn.setText(turn_med + "");
                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);//fungsi untuk enable touch
                 }
             }, 1000);
@@ -262,7 +276,7 @@ public class GameFragment extends Fragment {
         int cId15 = btnbg15.getColor();
         ColorDrawable btnbg16 = (ColorDrawable) btn16.getBackground();
         int cId16 = btnbg16.getColor();
-//        System.out.println(cId1);
+//        System.out.println(cId1);(
         // -65536 => color of R.color.card_open
         // -16776961 => color of R.color.card
         if(cId1 == -6381922 && cId2 == -6381922 && cId3 == -6381922 && cId4 == -6381922 && cId5 == -6381922 &&
@@ -276,6 +290,12 @@ public class GameFragment extends Fragment {
 //            View customView = inflater.inflate(R.layout.popup_completed, null);
 //            popupWindow = new PopupWindow(customView, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 //            popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+        }
+        else if (turn_med == 0){
+            strIntent = "Lose";
+            Intent intent = new Intent(getActivity(), RetryActivity.class);
+            intent.putExtra("Status", strIntent);
+            startActivity(intent);
         }
     }
 }
