@@ -31,8 +31,9 @@ public class GameFragment extends Fragment {
     private TextView txturn;
 
     private String strIntent;
+    private int a;
 
-    private int turn_med = 1;
+    private int turn_med = 15;
 
     private ArrayList<String> isi;
     private String colorStr;
@@ -76,7 +77,12 @@ public class GameFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         shuffle();
         System.out.println(isi);
-        System.out.println(getActivity());
+        if(getActivity().getClass().getSimpleName().equals("medium")){
+            a = -1;
+        }
+        else{
+            a = 1;
+        }
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -209,7 +215,7 @@ public class GameFragment extends Fragment {
                         btnb=null;
                         score++;
                         klik=true;
-                        turn_med--;
+                        turn_med = turn_med + a;
                         checkwin();
                     }else{
                         //ini kalau tidak sama kartu akan tertutup textnya di hilangkan btna dan b di null kan dan klik dikembalikan ke true
@@ -222,7 +228,7 @@ public class GameFragment extends Fragment {
                         btna=null;
                         btnb=null;
                         klik=true;
-                        turn_med--;
+                        turn_med = turn_med + a;
                         checkwin();
                     }
                     txturn.setText(turn_med + "");
@@ -281,18 +287,19 @@ public class GameFragment extends Fragment {
         // -16776961 => color of R.color.card
         if(cId1 == -6381922 && cId2 == -6381922 && cId3 == -6381922 && cId4 == -6381922 && cId5 == -6381922 &&
                 cId6 == -6381922 && cId7 == -6381922 && cId8 == -6381922 && cId9 == -6381922 && cId10 == -6381922 &&
-                cId11 == -6381922 && cId12 == -6381922 && cId13 == -6381922 && cId14 == -6381922 && cId15 == -6381922 && cId16 == -6381922){
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new RetryFragment(),
-                    RetryFragment.class.getSimpleName()).addToBackStack(null).commit();
-
+                cId11 == -6381922 && cId12 == -6381922 && cId13 == -6381922 && cId14 == -6381922 && cId15 == -6381922 && cId16 == -6381922 && turn_med > 0){
+            strIntent = "YOU WIN!";
+            Intent intent = new Intent(getActivity(), RetryActivity.class);
+            intent.putExtra("Status", strIntent);
+            startActivity(intent);
 //            -----Popup Window-----
 //            LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
 //            View customView = inflater.inflate(R.layout.popup_completed, null);
 //            popupWindow = new PopupWindow(customView, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 //            popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
         }
-        else if (turn_med == 0){
-            strIntent = "Lose";
+        else if (turn_med <= 0){
+            strIntent = "YOU LOSE!";
             Intent intent = new Intent(getActivity(), RetryActivity.class);
             intent.putExtra("Status", strIntent);
             startActivity(intent);
