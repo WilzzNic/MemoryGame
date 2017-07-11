@@ -276,7 +276,7 @@ public class GameFragment extends Fragment {
         int cId15 = btnbg15.getColor();
         ColorDrawable btnbg16 = (ColorDrawable) btn16.getBackground();
         int cId16 = btnbg16.getColor();
-//        System.out.println(cId1);(
+//        System.out.println(cId1);
         // -65536 => color of R.color.card_open
         // -16776961 => color of R.color.card
         if(cId1 == -6381922 && cId2 == -6381922 && cId3 == -6381922 && cId4 == -6381922 && cId5 == -6381922 &&

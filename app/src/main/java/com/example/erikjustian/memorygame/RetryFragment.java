@@ -1,6 +1,7 @@
 package com.example.erikjustian.memorygame;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,9 +20,8 @@ public class RetryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_retry, container, false);
         btndenied = (ImageButton) view.findViewById(R.id.button);
         btnapprove = (ImageButton) view.findViewById(R.id.button2);
-        ((medium)getActivity()).getSupportActionBar().setTitle("Retry");
-        ((medium)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
+        ((RetryActivity)getActivity()).getSupportActionBar().setTitle("Retry");
+        ((RetryActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         return view;
     }
 
@@ -31,13 +31,15 @@ public class RetryFragment extends Fragment {
         btndenied.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().popBackStack();
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
             }
         });
         btnapprove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().popBackStack();
+                Intent intent = new Intent(getActivity(), medium.class);
+                startActivity(intent);
             }
         });
     }

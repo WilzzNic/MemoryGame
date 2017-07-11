@@ -26,7 +26,7 @@
             android:layout_marginLeft="6dp"
             android:layout_marginRight="6dp"
             android:fontFamily="monospace"
-            android:text="10"
+            android:text=""
             android:textSize="16sp" />
     </LinearLayout>
 

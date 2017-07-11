@@ -16,8 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".easy"></activity>
-        <activity android:name=".medium"></activity>
+        <activity android:name=".easy" />
+        <activity android:name=".medium" />
+        <activity android:name=".RetryActivity"></activity>
     </application>
 
 </manifest>

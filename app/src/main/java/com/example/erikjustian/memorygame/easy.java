@@ -11,5 +11,10 @@ public class easy extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout2x2);
+
+//        if(savedInstanceState == null){
+//            getSupportFragmentManager().beginTransaction().add(R.id.frame_container, new GameFragment(),
+//                    GameFragment.class.getSimpleName()).commit();
+//        }
     }
 }
