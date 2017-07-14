@@ -28,6 +28,7 @@ public class GameFragment extends Fragment {
     private Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8,
             btn9, btn10, btn11, btn12, btn13, btn14, btn15, btn16,
             btna, btnb;
+    private float scale=0.5f;
 
     private TextView txturn, txtScore;
 
@@ -203,7 +204,16 @@ public class GameFragment extends Fragment {
             btna = btncek;
             btna.setClickable(false);
             btna.setBackgroundResource(R.color.card_open);
+            btna.setScaleX(scale);
             btna.setText(isi.get(no - 1));
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    btna.setScaleX(scale*2);
+                }
+            }, 50);
+
             klik = false;
 //            frame.setVisibility(View.GONE);
 //            getSupportFragmentManager().beginTransaction().add(R.id.root_container, new RetryFragment(),
@@ -214,11 +224,19 @@ public class GameFragment extends Fragment {
             btnb = btncek;
             btnb.setClickable(false);
             btnb.setBackgroundResource(R.color.card_open);
+            btnb.setScaleX(scale);
             btnb.setText(isi.get(no - 1));
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    btnb.setScaleX(scale*2);
+                }
+            }, 50);
             // dibawah untuk delay sebelum di cocokkan
             getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);// ini fungsi untuk disable semua touch
-            final Handler handler = new Handler();
+//            handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -235,6 +253,8 @@ public class GameFragment extends Fragment {
                         }
                         btna.setBackgroundResource(R.color.card);
                         btnb.setBackgroundResource(R.color.card);
+                        btna.setVisibility(View.INVISIBLE);
+                        btnb.setVisibility(View.INVISIBLE);
                         btna = null;
                         btnb = null;
                         klik = true;
@@ -247,14 +267,25 @@ public class GameFragment extends Fragment {
                         btnb.setText("");
                         btna.setBackgroundResource(R.color.card_closed);
                         btnb.setBackgroundResource(R.color.card_closed);
-                        btna.setClickable(true);
-                        btnb.setClickable(true);
-                        btna = null;
-                        btnb = null;
-                        klik = true;
-                        turn = turn + a;
-                        multi = false;
-                        checkwin();
+                        btna.setScaleX(scale);
+                        btnb.setScaleX(scale);
+                        final Handler handlertutup=new Handler();
+                        handlertutup.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                btna.setScaleX(scale*2);
+                                btnb.setScaleX(scale*2);
+                                btna.setClickable(true);
+                                btnb.setClickable(true);
+                                btna = null;
+                                btnb = null;
+                                klik = true;
+                                turn = turn + a;
+                                multi = false;
+                                checkwin();
+                            }
+                        }, 50);
+
                     }
                     txturn.setText(turn + "");
                     txtScore.setText(score + "");
