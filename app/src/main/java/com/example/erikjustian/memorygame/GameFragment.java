@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -30,7 +31,7 @@ public class GameFragment extends Fragment {
             btna, btnb;
     private float scale=0.5f;
 
-    private TextView txturn, txtScore;
+    private TextView txturn, txtScore,txtTimer;
 
     private String msg, lvl;
     private int a;
@@ -42,6 +43,21 @@ public class GameFragment extends Fragment {
     private Boolean multi = false;
     private int score = 0;
     private int point = 5;
+
+    // untuk timer
+    private CountDownTimer timer=new CountDownTimer(30000,1000) {
+        @Override
+        public void onTick(long millisUntilFinished) {
+            String time;
+            time=Float.toString(millisUntilFinished/1000);
+            txtTimer.setText(time);
+        }
+
+        @Override
+        public void onFinish() {
+
+        }
+    };
 
     public GameFragment() {
         // Required empty public constructor
@@ -70,9 +86,10 @@ public class GameFragment extends Fragment {
         btn16 = (Button) view.findViewById(R.id.btn16);
         txturn = (TextView) view.findViewById(R.id.txtTurn);
         txtScore = (TextView) view.findViewById(R.id.txtScore);
+        txtTimer = (TextView) view.findViewById(R.id.txtTimer);
         lvl = ((medium) getActivity()).getIntent().getStringExtra("lvl");
-
         setHasOptionsMenu(true);
+        timer.start();
         return view;
     }
 
