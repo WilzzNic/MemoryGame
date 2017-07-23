@@ -321,54 +321,22 @@ public class GameFragment extends Fragment {
 
     protected void reset(){
         shuffle();
+    Button[] tombols= new Button[]{btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btn10,btn11,btn12,btn13,btn14,btn15,btn16};
+        for (final Button tombol:tombols) {
+                tombol.setBackgroundResource(R.color.card_closed);
+                tombol.setText("");
+                tombol.setClickable(true);
 
-        btn1.setBackgroundResource(R.color.card_closed);
-        btn1.setText("");btn1.setClickable(true);
+            tombol.setScaleX(scale);
+            final Handler handlerreset=new Handler();
+            handlerreset.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                   tombol.setScaleX(scale*2);
+                }
+            }, 50);
 
-        btn2.setBackgroundResource(R.color.card_closed);
-        btn2.setText("");btn2.setClickable(true);
-
-        btn3.setBackgroundResource(R.color.card_closed);
-        btn3.setText("");btn3.setClickable(true);
-
-        btn4.setBackgroundResource(R.color.card_closed);
-        btn4.setText("");btn4.setClickable(true);
-
-        btn5.setBackgroundResource(R.color.card_closed);
-        btn5.setText("");btn5.setClickable(true);
-
-        btn6.setBackgroundResource(R.color.card_closed);
-        btn6.setText("");btn6.setClickable(true);
-
-        btn7.setBackgroundResource(R.color.card_closed);
-        btn7.setText("");btn7.setClickable(true);
-
-        btn8.setBackgroundResource(R.color.card_closed);
-        btn8.setText("");btn8.setClickable(true);
-
-        btn9.setBackgroundResource(R.color.card_closed);
-        btn9.setText("");btn9.setClickable(true);
-
-        btn10.setBackgroundResource(R.color.card_closed);
-        btn10.setText("");btn10.setClickable(true);
-
-        btn11.setBackgroundResource(R.color.card_closed);
-        btn11.setText("");btn11.setClickable(true);
-
-        btn12.setBackgroundResource(R.color.card_closed);
-        btn12.setText("");btn12.setClickable(true);
-
-        btn13.setBackgroundResource(R.color.card_closed);
-        btn13.setText("");btn13.setClickable(true);
-
-        btn14.setBackgroundResource(R.color.card_closed);
-        btn14.setText("");btn14.setClickable(true);
-
-        btn15.setBackgroundResource(R.color.card_closed);
-        btn15.setText("");btn15.setClickable(true);
-
-        btn16.setBackgroundResource(R.color.card_closed);
-        btn16.setText("");btn16.setClickable(true);
+        }
 
         long sisa;
         sisa=TimerMundur.getSisawaktu();
