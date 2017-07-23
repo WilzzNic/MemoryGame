@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,19 +46,7 @@ public class GameFragment extends Fragment {
     private int point = 5;
 
     // untuk timer
-    private CountDownTimer timer=new CountDownTimer(30000,1000) {
-        @Override
-        public void onTick(long millisUntilFinished) {
-            String time;
-            time=Float.toString(millisUntilFinished/1000);
-            txtTimer.setText(time);
-        }
-
-        @Override
-        public void onFinish() {
-
-        }
-    };
+    private CountDownTimer timer;
 
     public GameFragment() {
         // Required empty public constructor
@@ -89,6 +78,20 @@ public class GameFragment extends Fragment {
         txtTimer = (TextView) view.findViewById(R.id.txtTimer);
         lvl = ((medium) getActivity()).getIntent().getStringExtra("lvl");
         setHasOptionsMenu(true);
+
+        timer=new TimerMundur(300000,1000,txtTimer){
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                message();
+            String result = Integer.toString(score);
+            Intent intent = new Intent(getActivity(), RetryActivity.class);
+            intent.putExtra("Status", msg);
+            intent.putExtra("lvl", lvl);
+            intent.putExtra("result", result);
+            startActivity(intent);
+            }// untuk kalau 0 finish
+        };
         timer.start();
         return view;
     }
@@ -270,8 +273,6 @@ public class GameFragment extends Fragment {
                         }
                         btna.setBackgroundResource(R.color.card);
                         btnb.setBackgroundResource(R.color.card);
-                        btna.setVisibility(View.INVISIBLE);
-                        btnb.setVisibility(View.INVISIBLE);
                         btna = null;
                         btnb = null;
                         klik = true;
@@ -317,6 +318,79 @@ public class GameFragment extends Fragment {
         Collections.shuffle(isi);
     }
 
+
+    protected void reset(){
+        shuffle();
+
+        btn1.setBackgroundResource(R.color.card_closed);
+        btn1.setText("");btn1.setClickable(true);
+
+        btn2.setBackgroundResource(R.color.card_closed);
+        btn2.setText("");btn2.setClickable(true);
+
+        btn3.setBackgroundResource(R.color.card_closed);
+        btn3.setText("");btn3.setClickable(true);
+
+        btn4.setBackgroundResource(R.color.card_closed);
+        btn4.setText("");btn4.setClickable(true);
+
+        btn5.setBackgroundResource(R.color.card_closed);
+        btn5.setText("");btn5.setClickable(true);
+
+        btn6.setBackgroundResource(R.color.card_closed);
+        btn6.setText("");btn6.setClickable(true);
+
+        btn7.setBackgroundResource(R.color.card_closed);
+        btn7.setText("");btn7.setClickable(true);
+
+        btn8.setBackgroundResource(R.color.card_closed);
+        btn8.setText("");btn8.setClickable(true);
+
+        btn9.setBackgroundResource(R.color.card_closed);
+        btn9.setText("");btn9.setClickable(true);
+
+        btn10.setBackgroundResource(R.color.card_closed);
+        btn10.setText("");btn10.setClickable(true);
+
+        btn11.setBackgroundResource(R.color.card_closed);
+        btn11.setText("");btn11.setClickable(true);
+
+        btn12.setBackgroundResource(R.color.card_closed);
+        btn12.setText("");btn12.setClickable(true);
+
+        btn13.setBackgroundResource(R.color.card_closed);
+        btn13.setText("");btn13.setClickable(true);
+
+        btn14.setBackgroundResource(R.color.card_closed);
+        btn14.setText("");btn14.setClickable(true);
+
+        btn15.setBackgroundResource(R.color.card_closed);
+        btn15.setText("");btn15.setClickable(true);
+
+        btn16.setBackgroundResource(R.color.card_closed);
+        btn16.setText("");btn16.setClickable(true);
+
+        long sisa;
+        sisa=TimerMundur.getSisawaktu();
+        timer.cancel();
+        timer= new TimerMundur(sisa+5000,1000,txtTimer){
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                message();
+                String result = Integer.toString(score);
+                Intent intent = new Intent(getActivity(), RetryActivity.class);
+                intent.putExtra("Status", msg);
+                intent.putExtra("lvl", lvl);
+                intent.putExtra("result", result);
+                startActivity(intent);
+            }
+        };
+        timer.start();
+
+    }
+
+
     protected void checkwin() {
         //noinspection ResourceType
         colorStr = getResources().getString(R.color.card_open);
@@ -343,24 +417,27 @@ public class GameFragment extends Fragment {
 
         if (c1 == -6381922 && c2 == -6381922 && c3 == -6381922 && c4 == -6381922 && c5 == -6381922 &&
             c6 == -6381922 && c7 == -6381922 && c8 == -6381922 && c9 == -6381922 && c10 == -6381922 &&
-            c11 == -6381922 && c12 == -6381922 && c13 == -6381922 && c14 == -6381922 && c15 == -6381922 && c16 == -6381922 && turn >= 0) {
-            message();
-            String result = Integer.toString(score);
-            Intent intent = new Intent(getActivity(), RetryActivity.class);
-            intent.putExtra("Status", msg);
-            intent.putExtra("lvl", lvl);
-            intent.putExtra("result", result);
-            startActivity(intent);
+            c11 == -6381922 && c12 == -6381922 && c13 == -6381922 && c14 == -6381922 && c15 == -6381922 && c16 == -6381922 ) {
+            System.out.print("Menang");
+//            message();
+//            String result = Integer.toString(score);
+//            Intent intent = new Intent(getActivity(), RetryActivity.class);
+//            intent.putExtra("Status", msg);
+//            intent.putExtra("lvl", lvl);
+//            intent.putExtra("result", result);
+//            startActivity(intent);
+             reset();
 
-        } else if (turn <= 0) {
-            msg = "GAME OVER";
-            String result = Integer.toString(score);
-            Intent intent = new Intent(getActivity(), RetryActivity.class);
-            intent.putExtra("Status", msg);
-            intent.putExtra("lvl", lvl);
-            intent.putExtra("result", result);
-            startActivity(intent);
         }
+//        else if (turn <= 0) {
+//            msg = "GAME OVER";
+//            String result = Integer.toString(score);
+//            Intent intent = new Intent(getActivity(), RetryActivity.class);
+//            intent.putExtra("Status", msg);
+//            intent.putExtra("lvl", lvl);
+//            intent.putExtra("result", result);
+//            startActivity(intent);
+//        }
 
     } // end of checkwin
 
