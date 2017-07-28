@@ -32,11 +32,10 @@ public class GameFragment extends Fragment {
             btna, btnb;
     private float scale=0.5f;
 
-    private TextView txturn, txtScore,txtTimer;
+    private TextView txturn, txtScore,txtTimer, txtViewTimer, txtViewScore;
 
     private String msg, lvl;
-    private int a;
-    private int turn;
+    private int turn = 0;
 
     private ArrayList<String> isi;
     private String colorStr;
@@ -76,23 +75,39 @@ public class GameFragment extends Fragment {
         txturn = (TextView) view.findViewById(R.id.txtTurn);
         txtScore = (TextView) view.findViewById(R.id.txtScore);
         txtTimer = (TextView) view.findViewById(R.id.txtTimer);
-        lvl = ((medium) getActivity()).getIntent().getStringExtra("lvl");
+        txtViewTimer = (TextView)view.findViewById(R.id.textViewTimer);
+        txtViewScore = (TextView)view.findViewById(R.id.textViewScore);
+        lvl = (getActivity()).getIntent().getStringExtra("lvl");
         setHasOptionsMenu(true);
 
-        timer=new TimerMundur(300000,1000,txtTimer){
-            @Override
-            public void onFinish() {
-                super.onFinish();
-                message();
-            String result = Integer.toString(score);
-            Intent intent = new Intent(getActivity(), RetryActivity.class);
-            intent.putExtra("Status", msg);
-            intent.putExtra("lvl", lvl);
-            intent.putExtra("result", result);
-            startActivity(intent);
-            }// untuk kalau 0 finish
-        };
-        timer.start();
+        //gameplay choice rules
+        if (getActivity().getClass().getSimpleName().equals("medium")) {
+//            System.out.println(lvl);
+            switch (lvl) {
+                case "Relax Mode":
+                    txtViewTimer.setVisibility(View.GONE);
+                    txtTimer.setVisibility(View.GONE);
+                    txtScore.setVisibility(View.GONE);
+                    txtViewScore.setVisibility(View.GONE);
+                    break;
+                case "Challange Mode":
+                    timer=new TimerMundur(600000,1000,txtTimer){
+                        @Override
+                        public void onFinish() {
+                            super.onFinish();
+                            message();
+                            String result = Integer.toString(score);
+                            Intent intent = new Intent(getActivity(), RetryActivity.class);
+                            intent.putExtra("Status", msg);
+                            intent.putExtra("lvl", lvl);
+                            intent.putExtra("result", result);
+                            startActivity(intent);
+                        }// untuk kalau 0 finish
+                    };
+                    timer.start();
+                    break;
+            }
+        }
         return view;
     }
 
@@ -104,20 +119,6 @@ public class GameFragment extends Fragment {
 
         ((medium) getActivity()).getSupportActionBar().setSubtitle(lvl);
 
-        //gameplay choice rules
-        if (getActivity().getClass().getSimpleName().equals("medium")) {
-//            System.out.println(lvl);
-            switch (lvl) {
-                case "Relax Mode":
-                    turn = 0;
-                    a = 1;
-                    break;
-                case "Challange Mode":
-                    turn = 2;
-                    a = -1;
-                    break;
-            }
-        }
         txturn.setText(turn + "");
         txtScore.setText(score + "");
 
@@ -276,7 +277,8 @@ public class GameFragment extends Fragment {
                         btna = null;
                         btnb = null;
                         klik = true;
-                        turn = turn + a;
+                        turn++;
+                        txturn.setText(turn + "");
                         multi = true;
                         checkwin();
                     } else {
@@ -298,14 +300,14 @@ public class GameFragment extends Fragment {
                                 btna = null;
                                 btnb = null;
                                 klik = true;
-                                turn = turn + a;
+                                turn++;
+                                txturn.setText(turn + "");
                                 multi = false;
                                 checkwin();
                             }
                         }, 50);
 
                     }
-                    txturn.setText(turn + "");
                     txtScore.setText(score + "");
                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);//fungsi untuk enable touch
                 }
@@ -412,17 +414,20 @@ public class GameFragment extends Fragment {
     protected void message() {
         switch (lvl) {
             case "Relax Mode":
-                if (turn >= 14)
+                if (turn >= 14) {
                     msg = "GOOD GAME";
-                else if (turn < 14)
-                    if (score == 1275)
-                        msg = "PERFECT!";
-                    else if (score < 1275 && score >= 600)
-                        msg = "AWESOME";
-                    else if (score < 600 && score >= 100)
-                        msg = "GREAT JOB";
-                    else
-                        msg = "GOOD GAME";
+                    score = 0;
+                }
+                else if (turn < 14) {
+//                    if (score == 1275)
+//                        msg = "PERFECT!";
+//                    else if (score < 1275 && score >= 600)
+//                        msg = "AWESOME";
+//                    else if (score < 600 && score >= 100)
+//                        msg = "GREAT JOB";
+//                    else
+//                        msg = "GOOD GAME";
+                }
                 break;
 
             case "Challange Mode":
